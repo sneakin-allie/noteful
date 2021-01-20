@@ -48,6 +48,5 @@ export default class NoteListMain extends React.Component {
 }
 
 NoteListMain.propTypes = {
-    folderID: PropTypes.string,
-    notes: PropTypes.array,
+    match: PropTypes.object.isRequired
 }

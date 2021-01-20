@@ -14,20 +14,29 @@ export default class AddNote extends Component {
   static contextType = ApiContext;
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     const newNote = {
       name: e.target['note-name'].value,
       content: e.target['note-content'].value,
       folderId: e.target['note-folder-id'].value,
       modified: new Date(),
     }
-    fetch(`${config.API_ENDPOINT}/notes`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(newNote),
-    })
+
+    if (newNote === "") {
+      this.setState({
+        errorMessage: "Must not be blank"
+      })
+    } else {
+      this.setState({
+        errorMessage: ""
+      })
+      fetch(`${config.API_ENDPOINT}/notes`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newNote),
+      })
       .then(res => {
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
@@ -39,7 +48,9 @@ export default class AddNote extends Component {
       })
       .catch(error => {
         console.error({ error })
+        throw new Error(error)
       })
+    }
   }
 
   render() {
@@ -52,7 +63,8 @@ export default class AddNote extends Component {
             <label htmlFor='note-name-input'>
               Name
             </label>
-            <input type='text' id='note-name-input' name='note-name' />
+            <input type='text' id='note-name-input' name='note-name' /> 
+            {this.state.errorMessage}
           </div>
           <div className='field'>
             <label htmlFor='note-content-input'>
@@ -85,5 +97,6 @@ export default class AddNote extends Component {
 }
 
 AddNote.propTypes = {
-  folders: PropTypes.array,
+  folders: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired
 }

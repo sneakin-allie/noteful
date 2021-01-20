@@ -40,6 +40,6 @@ export default class NotePageMain extends React.Component {
 }
 
 NotePageMain.propTypes = {
-    notes: PropTypes.array,
-    noteId: PropTypes.string,
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
 }

@@ -3,6 +3,7 @@ import NotefulForm from '../NotefulForm/NotefulForm';
 import ApiContext from '../ApiContext';
 import config from '../config';
 import './AddFolder.css';
+import PropTypes from 'prop-types';
 
 export default class AddFolder extends Component {
   static defaultProps = {
@@ -13,10 +14,19 @@ export default class AddFolder extends Component {
   static contextType = ApiContext;
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     const folder = {
       name: e.target['folder-name'].value
     }
+
+  if (folder === ""){
+    this.setState({
+      errorMessage: "Must not be blank"
+    })
+  } else {
+    this.setState({
+      errorMessage: ""
+    })
     fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
       headers: {
@@ -35,8 +45,10 @@ export default class AddFolder extends Component {
       })
       .catch(error => {
         console.error({ error })
+        throw new Error(error)
       })
     }
+  }
 
   render() {
     return (
@@ -48,6 +60,7 @@ export default class AddFolder extends Component {
               Name
             </label>
             <input type='text' id='folder-name-input' name='folder-name' />
+            {this.state.errorMessage}
           </div>
           <div className='buttons'>
             <button type='submit'>
@@ -58,4 +71,8 @@ export default class AddFolder extends Component {
       </section>
     )
   }
+}
+
+AddFolder.propTypes = {
+  history: PropTypes.object.isRequired
 }
