@@ -15,7 +15,7 @@ export default class FormError extends React.Component {
     render() {
         if (this.state.hasError) {
             return (
-                <h2>Could not accept empty entry</h2>
+                <h2>Entry must not be blank</h2>
             );
         }
         return this.props.children;

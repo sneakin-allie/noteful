@@ -6,6 +6,13 @@ import './AddFolder.css';
 import PropTypes from 'prop-types';
 
 export default class AddFolder extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      errorMessage: null
+    }
+  }
+
   static defaultProps = {
     history: {
       push: () => {}
@@ -15,18 +22,16 @@ export default class AddFolder extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const folder = {
-      name: e.target['folder-name'].value
-    }
+    const folder = e.target['folder-name'].value
 
-  if (folder === ""){
+    console.log( "folder ", folder)
+    console.log(folder === "")
+
+  if (folder === "") {
     this.setState({
-      errorMessage: "Must not be blank"
+      errorMessage: "Entry must not be blank"
     })
   } else {
-    this.setState({
-      errorMessage: ""
-    })
     fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
       headers: {
@@ -60,7 +65,7 @@ export default class AddFolder extends Component {
               Name
             </label>
             <input type='text' id='folder-name-input' name='folder-name' />
-            {this.state.errorMessage}
+            <div className='error-message'>{this.state.errorMessage}</div>
           </div>
           <div className='buttons'>
             <button type='submit'>

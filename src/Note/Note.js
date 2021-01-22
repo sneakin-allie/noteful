@@ -27,8 +27,7 @@ export default class Note extends React.Component {
             return res.json()
         })
         .then(() => {
-            this.context.onDeleteNote(noteId)
-            this.props.onDeleteNote(noteId)
+            this.context.deleteNote(noteId)  
         })
         .catch(error => {
             console.error({error})

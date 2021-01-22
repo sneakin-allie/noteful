@@ -6,6 +6,13 @@ import config from '../config';
 import './AddNote.css';
 
 export default class AddNote extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      errorMessage: null
+    }
+  }
+
   static defaultProps = {
     history: {
       push: () => {}
@@ -22,9 +29,9 @@ export default class AddNote extends Component {
       modified: new Date(),
     }
 
-    if (newNote === "") {
+    if ((newNote.name === "") || (newNote.content === "") || (newNote.folderId === "")) {
       this.setState({
-        errorMessage: "Must not be blank"
+        errorMessage: "Entry must not be blank"
       })
     } else {
       this.setState({
@@ -64,7 +71,6 @@ export default class AddNote extends Component {
               Name
             </label>
             <input type='text' id='note-name-input' name='note-name' /> 
-            {this.state.errorMessage}
           </div>
           <div className='field'>
             <label htmlFor='note-content-input'>
@@ -85,6 +91,7 @@ export default class AddNote extends Component {
               )}
             </select>
           </div>
+          <div className='error-message'>{this.state.errorMessage}</div>
           <div className='buttons'>
             <button type='submit'>
               Add note
