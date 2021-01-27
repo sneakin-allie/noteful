@@ -4,6 +4,7 @@ import CircleButton from '../CircleButton/CircleButton'
 import ApiContext from '../ApiContext';
 import { findNote, findFolder } from '../notes-helpers';
 import './NotePageNav.css';
+import { Link } from 'react-router-dom';
 
 export default class NotePageNav extends React.Component {
     static defaultProps = {
@@ -24,11 +25,13 @@ export default class NotePageNav extends React.Component {
         return (
             <div className="NotePageNav">
                 <CircleButton
-                    tag="button"
+                    tag={Link}
+                    to="/"
                     role="link"
                     onClick={() => this.props.history.goBack()} 
                     className="NotePageNav_back-button"
                 >
+                    <br />
                     Back
                 </CircleButton>
                 {folder && (

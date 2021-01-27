@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class FormError extends React.Component {
     constructor(props) {
@@ -15,9 +16,13 @@ export default class FormError extends React.Component {
     render() {
         if (this.state.hasError) {
             return (
-                <h2>Entry must not be blank</h2>
+                <h2>Something went wrong; try again later.</h2>
             );
         }
         return this.props.children;
     }
+}
+
+FormError.propTypes = {
+    children: PropTypes.object.isRequired,
 }

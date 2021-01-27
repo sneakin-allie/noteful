@@ -22,14 +22,13 @@ export default class AddFolder extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const folder = e.target['folder-name'].value
+    const folder = {
+      name: e.target['folder-name'].value
+    }
 
-    console.log( "folder ", folder)
-    console.log(folder === "")
-
-  if (folder === "") {
+  if (folder.name === "") {
     this.setState({
-      errorMessage: "Entry must not be blank"
+      errorMessage: "Folder name cannot be blank"
     })
   } else {
     fetch(`${config.API_ENDPOINT}/folders`, {

@@ -29,9 +29,13 @@ export default class AddNote extends Component {
       modified: new Date(),
     }
 
-    if ((newNote.name === "") || (newNote.content === "") || (newNote.folderId === "")) {
+    if (newNote.name === "") {
       this.setState({
-        errorMessage: "Entry must not be blank"
+        errorMessageName: "Name cannot be blank"
+      })
+    } else if (newNote.content === "") {
+      this.setState({
+        errorMessageContent: "Content cannot be blank"
       })
     } else {
       this.setState({
@@ -70,20 +74,21 @@ export default class AddNote extends Component {
             <label htmlFor='note-name-input'>
               Name
             </label>
-            <input type='text' id='note-name-input' name='note-name' /> 
+            <input type='text' id='note-name-input' name='note-name' />
+            <div className='error-message'>{this.state.errorMessageName}</div> 
           </div>
           <div className='field'>
             <label htmlFor='note-content-input'>
               Content
             </label>
             <textarea id='note-content-input' name='note-content' />
+            <div className='error-message'>{this.state.errorMessageContent}</div>
           </div>
           <div className='field'>
             <label htmlFor='note-folder-select'>
               Folder
             </label>
             <select id='note-folder-select' name='note-folder-id'>
-              <option value={null}>...</option>
               {folders.map(folder =>
                 <option key={folder.id} value={folder.id}>
                   {folder.name}
@@ -91,7 +96,6 @@ export default class AddNote extends Component {
               )}
             </select>
           </div>
-          <div className='error-message'>{this.state.errorMessage}</div>
           <div className='buttons'>
             <button type='submit'>
               Add note
@@ -104,6 +108,5 @@ export default class AddNote extends Component {
 }
 
 AddNote.propTypes = {
-  folders: PropTypes.array.isRequired,
   history: PropTypes.object.isRequired
 }
