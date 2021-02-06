@@ -1,4 +1,4 @@
-NOTEFUL
+NOTEFUL (ongoing assignment)
 
 You're going to build an application called Noteful. This application will be built up over several checkpoints as we first create the design and basic components with routing, and then move onto integrating the API calls. We'll also be building the back-end for this application in the Node curriculum!
 
@@ -17,18 +17,21 @@ Every route will have the same header section, the app's title should be a link 
 The state will be supplied below in a JSON object and contains an array of folders and an array of notes
 
 Set the state inside the main App component (we'll use an API call to populate this state in a future checkpoint)
+
 The main route:
 
 Should be displayed when the path is /
 The main section will display all of the available notes
 Each note should show its name and modified date
 The sidebar will display a list of folders with none selected
+
 The dynamic folder route:
 
 Should be displayed when the path is /folder/<with-a-folder-id-here>
 The folder-id will reference an id of one of the folders in state
 The main section should display only the notes that are "in" the selected folder
 The sidebar should display the folder list with the selected folder highlighted
+  
 The dynamic note route:
 
 Should be displayed when the path is /note/<with-a-note-id-here>
